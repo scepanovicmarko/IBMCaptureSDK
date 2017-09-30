@@ -6,17 +6,19 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ICPBoxItem;
+@class ICPBoxItem, BOXMetadata;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^ICPBoxHelperFolderListBlock)(BOOL success, NSString *folderId, NSArray<ICPBoxItem *> *items, NSError * _Nullable error);
+typedef void(^ICPBoxHelperFolderListBlock)(BOOL success, NSString * _Nullable folderId, NSString * _Nullable folderName, NSArray<ICPBoxItem *> *items, NSError * _Nullable error);
 typedef void(^ICPBoxHelperDownloadFileBlock)(BOOL success, NSData * _Nullable content, NSError * _Nullable error);
 typedef void(^ICPBoxHelperRootLookupBlock)(BOOL success, NSString * _Nullable folderName, NSString * _Nullable folderId, NSError * _Nullable error);
 typedef void(^ICPBoxHelperOperationBlock)(BOOL success, NSError * _Nullable error);
 typedef void(^ICPBoxHelperProgressBlock)(float progress);
+typedef void(^ICPBoxHelperDownloadItem)(BOOL success, ICPBoxItem * _Nullable item, NSError * _Nullable error);
 typedef void(^ICPBoxHelperFileUpdateBlock)(BOOL success, NSString * _Nullable fileName, NSString * _Nullable fileId, NSError * _Nullable error);
-typedef void(^ICPBoxHelperNavigationBlock)(BOOL success, NSString * _Nullable folderId, NSArray<ICPBoxItem *> *items, NSError * _Nullable error);
+typedef void(^ICPBoxHelperNavigationBlock)(BOOL success, NSString * _Nullable folderId, NSString * _Nullable folderName, NSArray<ICPBoxItem *> *items, NSError * _Nullable error);
+typedef void(^ICPBoxHelperMetadataBlock)(BOOL success, BOXMetadata* _Nullable metadata, NSError * _Nullable error);
 
 /**
  The ICPBoxSDKHelper encapsulate the Box sdk operations 
@@ -80,6 +82,17 @@ typedef void(^ICPBoxHelperNavigationBlock)(BOOL success, NSString * _Nullable fo
              withCompletion:(ICPBoxHelperDownloadFileBlock)completion;
 
 /**
+ Given a specific URL and password, this method will lookup for a possible match and download the item informations.
+ 
+ @param url         Share URL of the file/folder
+ @param password    If present, password used to protect the shared item
+ @param completion  Block that will be called once the process is completed
+*/
+- (void) downloadItemWithURL:(NSURL *)url
+                    password:(NSString * _Nullable)password
+               andCompletion:(ICPBoxHelperDownloadItem)completion;
+
+/**
  This method will create an empty folder on a given folder
  
  @param folderName      Name that will be used to create the folder
@@ -139,11 +152,29 @@ typedef void(^ICPBoxHelperNavigationBlock)(BOOL success, NSString * _Nullable fo
 - (void) updateFile:(NSString *)fileId
            withData:(NSData *)data
         description:(NSString * _Nullable)description
-           progress:(ICPBoxHelperProgressBlock)progress
+           progress:(_Nullable ICPBoxHelperProgressBlock)progress
       andCompletion:(ICPBoxHelperFileUpdateBlock)completion;
 
 /** Load from the resources the default DCO file */
 - (NSData *)defaultSetupDCO;
+
+/**
+ This method will add key value metadata to the file as global properties
+ 
+ @param fileId      Id of the file that will be updated
+ @param properties  NSData with the new file content
+ @param completion  Block that will be called once that the operation is completed
+ */
+
+
+/**
+ *  This method will add key value metadata to the file as global properties
+ *
+ *  @param properties Ordered array of dictionaries (ideally each with one key/value)
+ *  @param fileID     Id of the file that will be updated
+ *  @param completion Block that will be called once that the operation is completed
+ */
+-(void)createMetadata:(NSArray <NSDictionary *>*)properties forFileID:(NSString *)fileID andCompletion:(ICPBoxHelperMetadataBlock)completion;
 
 @end
 

@@ -55,6 +55,22 @@ typedef void (^ICPOcrEngineZonalTextRecognizedBlock)(NSArray<NSString *> *texts,
              completionBlock:(ICPOcrEngineTextRecognizedBlock)completionBlock;
 
 /**
+ *  Performs OCR on a rectangle in an image with a set whitelist of characters.
+ *
+ *  @param image           The image.
+ *  @param rect            The zone within which OCR should be performed.
+ *  @param characterSet    NSCharacterSet to recognize, for example @"1234567890" for an integer field.
+ *  @param highlightChars  When set to true, the completion block recieves an image showing the character blocks recognized by
+ OCR. Turning this on is useful for debugging OCR issues.
+ *  @param completionBlock The completionBlock.
+ */
+- (void)recognizeTextInImage:(UIImage *)image
+                    withRect:(CGRect)rect
+           whiteCharacterSet:(nullable NSCharacterSet *)characterSet
+              highlightChars:(BOOL)highlightChars
+             completionBlock:(ICPOcrEngineTextRecognizedBlock)completionBlock;
+
+/**
  *  Performs multiple OCR on a list of rectangles in an image with a set whitelist of characters.
  *
  *  @param image           The image.

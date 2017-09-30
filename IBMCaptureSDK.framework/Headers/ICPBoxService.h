@@ -11,7 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ICPBoxService <ICPService>
 
-/** The id of the folder where the DCO file is storage and where the job files will be created/uploaded */
+/** The id of the configuration file. **/
+@property (nonatomic, strong, nullable) NSString *dcoFileId;
+
+/** The id of the folder where the job files will be created/uploaded.
+ If the dcoFileId is nil, the sdk will look for a DCO file on this folder.
+ */
 @property (nonatomic, strong) NSString *folderId;
 
 /** 

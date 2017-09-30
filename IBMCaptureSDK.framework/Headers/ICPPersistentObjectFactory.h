@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The fetched results controller
  */
--(NSFetchedResultsController *)fetchResultsControllerForBatchesWithStatuses:(NSArray <NSNumber *>*)statuses;
+-(NSFetchedResultsController * _Nullable)fetchResultsControllerForBatchesWithStatuses:(NSArray <NSNumber *>*)statuses;
 
 @end
 

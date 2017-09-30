@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, ICPStatus) {
     /** Status : Temp file, for transactions */
     ICPStatusTemp = 5,
     /** Counter property for enum. */
-    ICPStatusCount
+    ICPStatusCount = 6
 };
 
 #endif /* ICPStatus_h */

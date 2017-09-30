@@ -22,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^ICPImageEngineEdgePointsDetectedBlock)(NSArray<NSValue *> *_Nullable points);
 
 /**
+ *  A completion block for the text area recognition
+ *  @param  rects   Returns an array of CGRect contained as NSValue.
+ */
+typedef void(^ICPImageEngineRectanglesDetectedBlock)(NSArray<NSValue *> *rects);
+
+/**
  *  A completion block for image processing
  *
  *  @param image The resulting image
@@ -34,6 +40,13 @@ typedef void (^ICPImageEngineImageProcessedBlock)(UIImage *_Nullable image);
  *  @param quality returns a double between 0 and 1, 1 being good quality
  */
 typedef void (^ICPImageEngineImageQualityProcessedBlock)(double quality);
+
+/**
+ *  A completion block for pdf processing
+ *
+ *  @param quality returns a double between 0 and 1, 1 being good quality
+ */
+typedef void (^ICPImageEngineImagePDFProcessedBlock)(NSString *_Nullable pdfFile);
 
 /**
  The ICPImageEngine class provides image processing methods such as edge detection, deskew, cropping, filtering and rotation.
@@ -85,6 +98,9 @@ typedef void (^ICPImageEngineImageQualityProcessedBlock)(double quality);
                     withValidator:(id<ICPEdgeValidator> _Nullable)validator
                andCompletionBlock:(ICPImageEngineImageProcessedBlock)completionBlock;
 
+- (void)detectTextAreaInImage:(UIImage *)image
+          withCompletionBlock:(ICPImageEngineRectanglesDetectedBlock)completionBlock;
+
 /**
  *  Performs cropping on the given image using a CGRect.
  *
@@ -114,7 +130,8 @@ typedef void (^ICPImageEngineImageQualityProcessedBlock)(double quality);
  *  @param image           The image.
  *  @param completionBlock The completion block.
  */
-- (void)rotateToRightImage:(UIImage *)image completionBlock:(ICPImageEngineImageProcessedBlock)completionBlock;
+- (void)rotateToRightImage:(UIImage *)image
+           completionBlock:(ICPImageEngineImageProcessedBlock)completionBlock;
 
 /**
  *  Rotates the given image 90 degrees to the left
@@ -122,7 +139,19 @@ typedef void (^ICPImageEngineImageQualityProcessedBlock)(double quality);
  *  @param image           The image.
  *  @param completionBlock The completion block.
  */
-- (void)rotateToLeftImage:(UIImage *)image completionBlock:(ICPImageEngineImageProcessedBlock)completionBlock;
+- (void)rotateToLeftImage:(UIImage *)image
+          completionBlock:(ICPImageEngineImageProcessedBlock)completionBlock;
+
+/**
+ *  Returns a PDF document with one image per page and properties listed on the side
+ *
+ *  @param filePath        The filePath
+ *  @param images          The images
+ *  @param completionBlock The completion block
+ */
+- (void)createPDFDocumentWithFilePath:(NSString *)filePath
+                           fromImages:(NSArray <UIImage *>*)images
+                  withCompletionBlock:(ICPImageEngineImagePDFProcessedBlock)completionBlock;
 
 @end
 

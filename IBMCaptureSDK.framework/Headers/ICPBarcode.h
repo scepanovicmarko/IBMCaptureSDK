@@ -77,6 +77,28 @@ typedef NS_OPTIONS(uint64_t, ICPBarcodeType) {
 };
 
 /**
+ *  Barcode orientation in page
+ */
+typedef NS_OPTIONS(NSUInteger, ICPBarcodeOrientation) {
+    /**
+     *  Horizontal or Vertical
+     */
+    ICPBarcodeOrientationHorizontalOrVertical = 0,
+    /**
+     *  Horizontal
+     */
+    ICPBarcodeOrientationHorizontal = 1,
+    /**
+     *  Vertical
+     */
+    ICPBarcodeOrientationVertical = 2,
+    /**
+     *  Horizontal, Vertical or Diagonal
+     */
+    ICPBarcodeOrientationHorizontalVerticalAndDiagonal = 3
+};
+
+/**
  *  An object representing data read from a barcode
  */
 @interface ICPBarcode : NSObject

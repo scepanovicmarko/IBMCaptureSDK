@@ -6,22 +6,18 @@
 //
 
 #import "ICPObjectType.h"
+#import "ICPBarcode.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSUInteger, ICPFieldTypeStatus) {
-    ICPFieldTypeStatusAvailable = 0,
-    ICPFieldTypeStatusHidden = -1,
-    ICPFieldTypeStatusForbidden = -2
-};
 
 /** The ICPFieldType protocol represents the type of a field. */
 @protocol ICPFieldType <ICPObjectType>
 
-@property (nonatomic, assign, readonly) ICPFieldTypeStatus status;
+@property (nonatomic, assign, readonly) BOOL isBarcode;
 
-/** The label of the Field type */
-@property (nonatomic, strong, readonly) NSString *displayName;
+@property (nonatomic, assign, readonly) ICPBarcodeType barcodeType;
+
+@property (nonatomic, assign, readonly) ICPBarcodeOrientation barcodeOrientation;
 
 @end
 

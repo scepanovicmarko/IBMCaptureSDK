@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ICPRecognitionEngine.h"
-#import "ICPCheckCountry.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,7 +46,7 @@ typedef void(^ICPPageRemoteComputationCompletionBlock)(BOOL success, id<ICPPage>
  *  @param completionBlock The completion block
  */
 - (void)processCheck:(id<ICPPage>)checkFrontPage
-        checkCountry:(ICPCheckCountry)checkCountry
+        checkCountry:(NSString * _Nullable)checkCountry
            keepAlive:(BOOL)keepAlive
               locale:(NSLocale * _Nullable)locale
              timeout:(NSUInteger)timeout

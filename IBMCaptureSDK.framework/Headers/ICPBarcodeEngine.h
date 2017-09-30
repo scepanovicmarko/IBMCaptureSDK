@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ICPBarcode.h"
+#import "ICPBarcodeHint.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,14 +32,33 @@ typedef void (^ICPBarcodeEngineBarcodesRecognizedBlock)(NSArray<ICPBarcode *> *_
  *
  *  @param image           The image.
  *  @param bounds          The zone within which scan should be performed. CGRectNull means to scan the entire image.
- *  @param barcodeHints    bitmask options of ICPBarceType to look for in image. This improves the speed of processing the
+ *  @param barcodeType     bitmask options of ICPBarceType to look for in image. This improves the speed of processing the
  image for barcodes.
+ *  @param orientation     The barcode orientation if known
  *  @param completionBlock The completionBlock.
  */
+
+/**
+ *  Processes barcodes on a rectangle in an image, i
+ */
 - (void)recognizeBarcodeInImage:(UIImage *)image
-                     withBounds:(CGRect)bounds
-               withBarcodeHints:(ICPBarcodeType)barcodeHints
-                completionBlock:(nullable ICPBarcodeEngineBarcodesRecognizedBlock)completionBlock;
+                   withinBounds:(CGRect)bounds
+                withBarcodeType:(ICPBarcodeType)barcodeType
+          andBarcodeOrientation:(ICPBarcodeOrientation)orientation
+                completionBlock:(ICPBarcodeEngineBarcodesRecognizedBlock)completionBlock;
+
+/**
+ *  Detect list of barcodes in image
+ *
+ *  @param image           The image to scan
+ *  @param size            The original size of the image to which the rects refere
+ *  @param rects           The zones to scan for barcodes
+ *  @param completionBlock The completion block
+ */
+- (void)recognizeBarcodesInImage:(UIImage *)image
+                   withImageSize:(CGSize)size
+                    forBarcodeHints:(NSArray<ICPBarcodeHint *> *)barcodeHints
+             completionBlock:(ICPBarcodeEngineBarcodesRecognizedBlock)completionBlock;
 
 @end
 

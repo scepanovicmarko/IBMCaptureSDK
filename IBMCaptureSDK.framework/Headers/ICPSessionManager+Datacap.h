@@ -22,9 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An ICPSessionManager instance, configured for a datacap server
  */
-+ (instancetype) sessionManagerWithObjectFactory:(id<ICPObjectFactory>)objectFactory
-                                         service:(id<ICPDatacapService>)service
-                                  andCredentials:(NSURLCredential *)credential;
++ (instancetype _Nullable) sessionManagerWithObjectFactory:(id<ICPObjectFactory>)objectFactory
+                                                   service:(id<ICPDatacapService>)service
+                                            andCredentials:(NSURLCredential *)credential;
 
 /**
  This ICPRemoteComputationManager is an object configurated to perform page transactions on the Datacap server
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An ICPRemoteComputationManager instance, configured to the ICPSessionManager datacap server
  */
-- (ICPRemoteComputationManager *)datacapRemoteComputationManager;
+- (ICPRemoteComputationManager * _Nullable)datacapRemoteComputationManager;
 
 @end
 

@@ -7,24 +7,27 @@
 
 #import <Foundation/Foundation.h>
 
-@class ICPMRZData;
-
-/** Enum to specify wich is the type of the input string */
-typedef NS_ENUM(NSUInteger, ICPMRZDecoderInputType) {
-    /** The input string has the 2 lines of the MRZ pattern */
-    ICPMRZDecoderInputTypeComplete = 0,
-    /** The input string has just the top line of the MRZ pattern */
-    ICPMRZDecoderInputTypeTopLine,
-    /** The input string has just the bottom line of the MRZ pattern */
-    ICPMRZDecoderInputTypeBottomLine
+#ifndef ICPMRZDecoderType_h
+#define ICPMRZDecoderType_h
+typedef NS_ENUM(NSUInteger, ICPMRZDecoderType) {
+    ICPMRZDecoderType2Lines = 0,
+    ICPMRZDecoderType3Lines,
+    ICPMRZDecoderTypeFrenchIDCard
 };
+#endif
+
+@protocol ICPIDData;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  THe ICPMRZDecoder is responsable for decoding an <a href="http://www.icao.int/Security/FAL/Documents/2.API%20Guidelines%202013%20Appendix%20I%20MRZ%20Details_E.pdf">machine readable passport</a> information.
  */
-@interface ICPMRZDecoder : NSObject
+@interface ICPMRZDecoder:NSObject
+
++ (instancetype) decoderOfType:(ICPMRZDecoderType)type;
+
+- (instancetype) init NS_UNAVAILABLE;
 
 /**
  Method used to extract the MRZ information from a given string
@@ -37,9 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see   ICPMRZData
  */
-- (ICPMRZData * _Nullable) decodeString:(NSString *)string
-                                 ofType:(ICPMRZDecoderInputType)inputType
-                      withMaxConfidence:(NSNumber *)confidence;
+- (id<ICPIDData> _Nullable) decodeString:(NSString *)string
+                       withMaxConfidence:(NSNumber *)confidence;
 
 /** 
  Method used to extract the MRZ string from a bigger string

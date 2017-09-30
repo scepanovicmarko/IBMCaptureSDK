@@ -6,12 +6,11 @@
 //
 
 #import <CoreGraphics/CGGeometry.h>
-
-@class CIFeature;
+#import <IBMCaptureSDK/ICPFeature.h>
 
 @protocol ICPEdgeValidator <NSObject>
 
-- (BOOL) feature:(CIFeature *)feature
+- (BOOL) feature:(ICPFeature)feature
 isValidforBounds:(CGRect)bounds;
 
 - (BOOL) rect:(CGRect)rect

@@ -5,10 +5,10 @@
 //  Copyright (c) 2016 IBM Corporation. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "ICPEdgeValidator.h"
 
-@interface ICPParallelEdgeValidator : NSObject
+@interface ICPParallelEdgeValidator : NSObject <ICPEdgeValidator>
 
 @property (nonatomic, assign) CGFloat rotationAngleAllowance;
 

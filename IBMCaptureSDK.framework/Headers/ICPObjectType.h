@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ICPObjectTypeStatus.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** An NSDictionary with the values of the properties/variables */
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, NSString *> *dcoDictionary;
+
+/** The name to display */
+@property (nonatomic, strong, readonly) NSString *displayName;
+
+/** Helper to access the "Key" variable on the DCO object */
+@property (nonatomic, strong, readonly) NSString *dcoKey;
+
+/** Definition of the status of the type **/
+@property (nonatomic, assign, readonly) ICPObjectTypeStatus status; 
 
 @end
 

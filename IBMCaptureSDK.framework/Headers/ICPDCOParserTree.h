@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ICPDCOParserTree <NSObject>
 
 /** This configuration is the ICPBatchType processed by the instance of the tree */
-@property (nonatomic, strong, readonly) id<ICPBatchType> configuration;
+@property (nonatomic, strong, readonly, nullable) id<ICPBatchType> configuration;
 
 /**
  @param nodeType    The type of the node, usually represented by the element name

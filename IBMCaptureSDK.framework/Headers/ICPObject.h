@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** The ICPObject the object belongs to */
 @property (nonatomic, strong, nullable, readonly) id<ICPObject> parentObject;
 
+/** User side name of the object. This can be used to change the name of the files uploaded to the server */
+@property (nonatomic, strong, nullable) NSString *name;
+
+/** Helper to access the ICPField that correspond to the object description **/
+@property (nonatomic, strong, nullable, readonly) NSString *objectDescription;
+
 - (id<ICPField>)createFieldWithType:(id<ICPFieldType>)fieldType;
 
 /**

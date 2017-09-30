@@ -9,9 +9,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ICPApplication, ICPSetupDCO, ICPBatchType, ICPBatch;
 
+/**
+ *  Identification of the source that this service is related
+ */
 typedef NS_ENUM(NSUInteger, ICPDatacapServiceProviderType) {
+    /** Service created without a specific provider */
     ICPDatacapServiceProviderTypeUnknown = 0,
+    /** Service created from a Datacap server connection */
     ICPDatacapServiceProviderTypeDatacap = 1,
+    /** Service created from files storaged on Box */
     ICPDatacapServiceProviderTypeBox = 2
 };
 
@@ -20,9 +26,14 @@ typedef NS_ENUM(NSUInteger, ICPDatacapServiceProviderType) {
  */
 @protocol ICPService <NSObject>
 
-/** The URL of the remote service. */
+/** 
+ * The URL of the remote service. 
+ */
 @property (nonatomic, strong, nullable) NSURL *baseURL;
 
+/** 
+ * Enum used to specify the server that created this service 
+ **/
 @property (nonatomic, readonly) ICPDatacapServiceProviderType providerType;
 
 /**
@@ -43,12 +54,12 @@ typedef NS_ENUM(NSUInteger, ICPDatacapServiceProviderType) {
 /**
  *  The batch types supported by the service
  */
-@property (nonatomic, strong) NSArray<id<ICPBatchType> > *batchTypes;
+@property (nonatomic, strong) NSArray<id<ICPBatchType>> *batchTypes;
 
 /**
  *  The batches associated with the service
  */
-@property (nonatomic, strong) NSArray<id<ICPBatch> > *batches;
+@property (nonatomic, strong) NSArray<id<ICPBatch>> *batches;
 
 /**
  Adds a batch type to the service.
@@ -79,14 +90,16 @@ typedef NS_ENUM(NSUInteger, ICPDatacapServiceProviderType) {
  @param atIndex The index from where the batch should be moved.
  @param toIndex The index to where the batch should be moved.
  */
-- (void)moveBatchAtIndex:(NSUInteger)atIndex toIndex:(NSUInteger)toIndex;
+- (void)moveBatchAtIndex:(NSUInteger)atIndex
+                 toIndex:(NSUInteger)toIndex;
 
 /**
  Inserts a batch at the given index.
  @param batch The batch to be inserted.
  @param index The index where the batch should be inserted.
  */
-- (void)insertBatch:(id<ICPBatch>)batch atIndex:(NSUInteger)index;
+- (void)insertBatch:(id<ICPBatch>)batch
+            atIndex:(NSUInteger)index;
 
 @end
 

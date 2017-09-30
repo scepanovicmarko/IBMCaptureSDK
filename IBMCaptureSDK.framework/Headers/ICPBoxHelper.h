@@ -19,6 +19,8 @@ typedef void(^ICPBoxHelperSetupDCO)(BOOL success, ICPBoxItem *boxItem, id<ICPSet
 
 typedef void(^ICPBoxHelperListItem)(BOOL success, NSArray<ICPBoxItem *> *items, NSError * _Nullable error);
 
+typedef void(^ICPBoxHelperURLItem)(BOOL success, ICPBoxItem * _Nullable boxItem, NSError * _Nullable error);
+
 @interface ICPBoxHelper : NSObject <ICPServerHelper>
 
 - (instancetype) init NS_UNAVAILABLE;
@@ -32,6 +34,10 @@ typedef void(^ICPBoxHelperListItem)(BOOL success, NSArray<ICPBoxItem *> *items, 
 
 - (void) setupDCOOnFolderItem:(ICPBoxItem *)boxItem
           withCompletionBlock:(ICPBoxHelperSetupDCO)completion;
+
+- (void) downloadItemInformationForURL:(NSURL *)itemURL
+                          withPassword:(NSString * _Nullable)password
+                         andCompletion:(ICPBoxHelperURLItem)completion;
 
 @end
 
